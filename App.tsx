@@ -18,7 +18,10 @@ import {
   Mail,
   Code,
   FolderOpen,
-  ArrowRight
+  ArrowRight,
+  AlertCircle,
+  TrendingUp,
+  BarChart3
 } from 'lucide-react';
 
 const App = () => {
@@ -32,29 +35,30 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const projectFeatures = [
+  const problems = [
     {
-      title: "Automated Data Capture",
-      desc: "Input deskripsi langsung men-trigger penomoran urut dan penanggalan otomatis menggunakan logic ArrayFormula.",
-      icon: <Zap className="text-cyan-600" />
+      title: "Penomoran Arsip Tidak Konsisten",
+      desc: "Sering terjadi tumpang tindih nomor dokumen atau format yang berubah-ubah antar departemen.",
+      icon: <Hash className="text-red-500" />
     },
     {
-      title: "Dynamic Indexing Engine",
-      desc: "Sistem cerdas yang menghasilkan kode arsip unik berdasarkan kategori, tahun-bulan, dan urutan transaksi otomatis.",
-      icon: <Hash className="text-emerald-600" />
+      title: "Proses Rekapitulasi Lama",
+      desc: "Sulit untuk melihat total pengeluaran per kategori secara cepat tanpa harus memfilter data satu per satu.",
+      icon: <TrendingUp className="text-red-500" />
     },
     {
-      title: "Multi-Path Digital Archiving",
-      desc: "Integrasi cerdas yang memetakan transaksi ke 10+ folder Google Drive berbeda secara dinamis melalui formula IFS.",
-      icon: <LinkIcon className="text-cyan-600" />
+      title: "Pencarian Dokumen Lambat",
+      desc: "Admin sering kehilangan waktu berharga hanya untuk mencari file bukti transaksi di tumpukan folder tak terstruktur.",
+      icon: <FileSearch className="text-red-500" />
     }
   ];
 
   const techStack = [
     { name: "Google Sheets", color: "text-green-700", bg: "bg-green-100 border-green-200" },
-    { name: "ArrayFormula", color: "text-blue-700", bg: "bg-blue-100 border-blue-200" },
-    { name: "Regex Extract", color: "text-purple-700", bg: "bg-purple-100 border-purple-200" },
-    { name: "Google Drive API", color: "text-yellow-700", bg: "bg-yellow-100 border-yellow-200" },
+    { name: "Pivot Tables", color: "text-orange-700", bg: "bg-orange-100 border-orange-200" },
+    { name: "XLOOKUP", color: "text-blue-700", bg: "bg-blue-100 border-blue-200" },
+    { name: "ArrayFormula", color: "text-purple-700", bg: "bg-purple-100 border-purple-200" },
+    { name: "Google Drive Ecosystem", color: "text-yellow-700", bg: "bg-yellow-100 border-yellow-200" },
   ];
 
   const spreadsheetLink = "https://docs.google.com/spreadsheets/d/1i_t3G8EBR_vQpueLifXFqes_mih7KtZ1hgbaYCIRxGY/edit?gid=549792796#gid=549792796";
@@ -65,7 +69,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-[#DCDCDC] text-slate-900 font-sans selection:bg-cyan-200 selection:text-cyan-900">
       
-      {/* Background Gradients - Adjusted for Light Mode */}
+      {/* Background Gradients */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-cyan-400/20 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-emerald-400/20 rounded-full blur-[120px]"></div>
@@ -86,16 +90,16 @@ const App = () => {
         <div className="max-w-6xl mx-auto">
           
           {/* Project Header */}
-          <header className="mb-24 relative">
+          <header className="mb-20 relative">
             <div className="flex items-center gap-3 mb-6 animate-fade-in">
               <span className="h-px w-8 bg-cyan-600"></span>
-              <span className="text-cyan-700 text-xs font-bold tracking-widest uppercase">Transaction & Financial Management</span>
+              <span className="text-cyan-700 text-xs font-bold tracking-widest uppercase">SISTEM PENGARSIPAN TERPADU</span>
             </div>
             
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-              <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] tracking-tight font-headline text-balance text-slate-900">
-                Smart Ledger & <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Automated Indexing.</span>
+              <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight font-headline text-balance text-slate-900">
+                Sistem Manajemen Kas & <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-emerald-600">Dokumentasi Digital Terpusat</span>
               </h1>
               
               <div className="flex flex-col gap-4">
@@ -107,9 +111,9 @@ const App = () => {
                 >
                   View Live Spreadsheet <ExternalLink size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                    {techStack.map((tech) => (
-                     <span key={tech.name} className={`px-3 py-1 text-[10px] font-medium rounded-full ${tech.bg} ${tech.color} border`}>
+                     <span key={tech.name} className={`px-3 py-1 text-[10px] font-medium rounded-full ${tech.bg} ${tech.color} border whitespace-nowrap`}>
                        {tech.name}
                      </span>
                    ))}
@@ -117,209 +121,227 @@ const App = () => {
               </div>
             </div>
 
-            <p className="max-w-2xl text-slate-600 text-lg md:text-xl leading-relaxed mt-8 border-l-2 border-slate-300 pl-6">
-              Sebuah sistem manajemen transaksi mutakhir yang mengubah input manual yang berantakan menjadi database terstruktur dengan pengarsipan digital otomatis, mengurangi waktu administrasi hingga 60%.
+            <p className="max-w-3xl text-slate-600 text-lg leading-relaxed mt-8 border-l-2 border-slate-300 pl-6">
+              Proyek ini saya kembangkan untuk menciptakan satu sistem kerja yang mampu menangani dua hal sekaligus: <b>pencatatan arus kas</b> (masuk/keluar) dan <b>pengorganisasian arsip digital</b> secara sistematis. Dengan sistem ini, setiap transaksi tidak hanya tercatat angkanya, tetapi juga langsung memiliki "alamat" arsip yang unik.
             </p>
           </header>
 
-          {/* Visual Mockup Section - Light Mode Spreadsheet */}
+          {/* Problem Section */}
+          <section className="mb-24">
+            <h2 className="text-2xl font-bold mb-8 text-slate-800">Masalah yang Saya Pecahkan</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {problems.map((prob, idx) => (
+                <div key={idx} className="bg-red-50/50 p-6 rounded-2xl border border-red-100 hover:border-red-200 transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-white border border-red-100 flex items-center justify-center mb-4 shadow-sm">
+                    {prob.icon}
+                  </div>
+                  <h3 className="font-bold text-slate-800 mb-2">{prob.title}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">{prob.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Solution & Mockup Section */}
           <section className="mb-32">
-             <div className="relative rounded-xl overflow-hidden border border-black/5 bg-white shadow-2xl shadow-slate-400/20 group">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-8">
+               <h2 className="text-2xl font-bold text-slate-800">Solusi & Visualisasi Sistem</h2>
+               <div className="text-sm text-slate-500 font-medium">Gambaran Database Utama</div>
+            </div>
+
+             <div className="relative rounded-xl overflow-hidden border border-black/5 bg-white shadow-2xl shadow-slate-400/20 group mb-12">
                 <div className="absolute top-0 left-0 w-full h-8 bg-gray-50 flex items-center px-4 gap-2 border-b border-gray-200">
                    <div className="flex gap-1.5">
                       <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
                       <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
                       <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
                    </div>
-                   <div className="ml-4 text-[10px] text-gray-400 font-mono">MyProject - Master Ledger.xlsx</div>
+                   <div className="ml-4 text-[10px] text-gray-400 font-mono">Central Database - Kas & Arsip.xlsx</div>
                 </div>
                 
                 {/* Simulated Spreadsheet Grid */}
                 <div className="pt-8 overflow-x-auto">
-                   <div className="min-w-[800px] p-6">
-                      <div className="grid grid-cols-[80px_1fr_120px_120px_1fr] gap-4 mb-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                         <div>No. ID</div>
-                         <div>Date</div>
-                         <div>Category</div>
-                         <div>Amount</div>
-                         <div>Auto-Generated Index</div>
+                   <div className="min-w-[900px] p-6">
+                      <div className="grid grid-cols-[100px_1fr_120px_120px_160px_120px] gap-4 mb-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                         <div>Tanggal</div>
+                         <div>Deskripsi</div>
+                         <div>Kategori</div>
+                         <div>Jumlah (IDR)</div>
+                         <div>Kode Arsip (Auto)</div>
+                         <div>Link Dokumen</div>
                       </div>
                       
                       {/* Row 1 */}
-                      <div className="grid grid-cols-[80px_1fr_120px_120px_1fr] gap-4 py-3 border-b border-gray-100 items-center hover:bg-gray-50 transition-colors group/row">
-                         <div className="font-mono text-cyan-700 text-xs bg-cyan-50 px-2 py-1 rounded w-fit border border-cyan-100">#0042</div>
-                         <div className="text-sm text-gray-700">2024-03-15</div>
-                         <div><span className="bg-purple-100 text-purple-700 text-[10px] px-2 py-0.5 rounded border border-purple-200">Operational</span></div>
-                         <div className="font-mono text-emerald-600">Rp 2.500.000</div>
-                         <div className="font-mono text-xs text-gray-400 group-hover/row:text-slate-600 transition-colors">OPR-202403-0042-A</div>
+                      <div className="grid grid-cols-[100px_1fr_120px_120px_160px_120px] gap-4 py-3 border-b border-gray-100 items-center hover:bg-gray-50 transition-colors">
+                         <div className="text-sm text-gray-700">2023-08-10</div>
+                         <div className="text-sm font-medium text-slate-800">Pembelian Kertas A4</div>
+                         <div><span className="bg-purple-100 text-purple-700 text-[10px] px-2 py-0.5 rounded border border-purple-200">Administrasi</span></div>
+                         <div className="font-mono text-red-600">- 150.000</div>
+                         <div className="font-mono text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded w-fit border border-slate-200">ADM-2023-08-001</div>
+                         <div className="text-[10px] text-blue-600 underline cursor-pointer flex items-center gap-1"><FolderOpen size={10}/> Folder ADM</div>
                       </div>
                       
                        {/* Row 2 */}
-                       <div className="grid grid-cols-[80px_1fr_120px_120px_1fr] gap-4 py-3 border-b border-gray-100 items-center hover:bg-gray-50 transition-colors group/row">
-                         <div className="font-mono text-cyan-700 text-xs bg-cyan-50 px-2 py-1 rounded w-fit border border-cyan-100">#0043</div>
-                         <div className="text-sm text-gray-700">2024-03-16</div>
+                       <div className="grid grid-cols-[100px_1fr_120px_120px_160px_120px] gap-4 py-3 border-b border-gray-100 items-center hover:bg-gray-50 transition-colors">
+                         <div className="text-sm text-gray-700">2023-08-12</div>
+                         <div className="text-sm font-medium text-slate-800">Biaya Iklan Facebook</div>
                          <div><span className="bg-orange-100 text-orange-700 text-[10px] px-2 py-0.5 rounded border border-orange-200">Marketing</span></div>
-                         <div className="font-mono text-emerald-600">Rp 750.000</div>
-                         <div className="font-mono text-xs text-gray-400 group-hover/row:text-slate-600 transition-colors">MKT-202403-0043-B</div>
+                         <div className="font-mono text-red-600">- 500.000</div>
+                         <div className="font-mono text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded w-fit border border-slate-200">MKT-2023-08-001</div>
+                         <div className="text-[10px] text-blue-600 underline cursor-pointer flex items-center gap-1"><FolderOpen size={10}/> Folder MKT</div>
                       </div>
 
-                       {/* Row 3 - Typing Effect */}
-                       <div className="grid grid-cols-[80px_1fr_120px_120px_1fr] gap-4 py-3 border-b border-gray-100 items-center relative overflow-hidden bg-cyan-50/50">
-                         <div className="font-mono text-cyan-700 text-xs bg-cyan-50 px-2 py-1 rounded w-fit border border-cyan-100">#0044</div>
-                         <div className="text-sm text-gray-500">2024-03-18</div>
-                         <div><span className="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-200">Software</span></div>
-                         <div className="font-mono text-emerald-600">Rp 1.200.000</div>
+                       {/* Row 3 - Active Input */}
+                       <div className="grid grid-cols-[100px_1fr_120px_120px_160px_120px] gap-4 py-3 border-b border-gray-100 items-center bg-cyan-50/30">
+                         <div className="text-sm text-gray-500">2023-08-15</div>
+                         <div className="text-sm font-medium text-slate-800">Service Printer Kantor</div>
+                         <div><span className="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-200">Operasional</span></div>
+                         <div className="font-mono text-red-600">- 200.000</div>
                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs text-slate-700">SFT-202403-0044-A</span>
+                            <span className="font-mono text-xs text-slate-800 font-bold">OPS-2023-08-001</span>
                             <span className="inline-flex h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
                          </div>
+                         <div className="text-[10px] text-gray-400 italic">Generating Link...</div>
                       </div>
                    </div>
                 </div>
-                
-                {/* Floating Badge */}
-                <div className="absolute bottom-6 right-6 bg-white/80 backdrop-blur-md border border-emerald-200 shadow-lg px-4 py-2 rounded-lg flex items-center gap-3">
-                   <div className="bg-emerald-500 rounded-full p-1">
-                      <CheckCircle size={12} className="text-white" />
-                   </div>
-                   <div className="text-xs font-medium text-emerald-700">
-                      Formula Active
-                      <div className="text-[10px] text-emerald-600/60 font-mono">Processing...</div>
-                   </div>
+             </div>
+
+             {/* Mini Pivot Mockup */}
+             <div className="flex justify-end">
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-lg max-w-md w-full">
+                  <div className="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
+                    <BarChart3 className="w-4 h-4 text-slate-500" />
+                    <span className="text-xs font-bold uppercase text-slate-500">Pivot Summary (Real-time)</span>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600">Total Administrasi</span>
+                      <span className="font-mono font-medium">- 150.000</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600">Total Marketing</span>
+                      <span className="font-mono font-medium">- 500.000</span>
+                    </div>
+                    <div className="h-px bg-slate-100 my-2"></div>
+                    <div className="flex justify-between items-center font-bold text-slate-800">
+                      <span>Total Pengeluaran</span>
+                      <span className="text-red-600">- 850.000</span>
+                    </div>
+                  </div>
                 </div>
              </div>
           </section>
 
-          {/* Features Grid */}
-          <section className="grid md:grid-cols-3 gap-6 mb-32">
-            {projectFeatures.map((feature, idx) => (
-              <div key={idx} className="p-8 rounded-2xl bg-white border border-black/5 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-100 transition-all duration-300 group hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center mb-6 group-hover:bg-cyan-50 transition-colors">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-800">{feature.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  {feature.desc}
-                </p>
-              </div>
-            ))}
-          </section>
-
-          {/* Technical Deep Dive - The Logic */}
+          {/* Workflow Section */}
           <section className="mb-32">
-            <div className="flex items-center gap-3 mb-10">
+             <div className="flex items-center gap-3 mb-10">
                <span className="h-px w-8 bg-emerald-500"></span>
-               <span className="text-emerald-600 text-xs font-bold tracking-widest uppercase">Under the Hood</span>
+               <span className="text-emerald-600 text-xs font-bold tracking-widest uppercase">Sistem & Alur Kerja</span>
             </div>
             
-            <div className="grid lg:grid-cols-2 gap-12">
-               <div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Logic Formula yang <br/>Menjalankan Sistem.</h2>
-                  <p className="text-slate-600 mb-8 leading-relaxed">
-                     Kekuatan utama dari Smart Ledger ini terletak pada penggunaan <span className="text-slate-900 font-semibold">Nested Functions</span> dan <span className="text-slate-900 font-semibold">ArrayFormula</span>. Formula ini memastikan sistem tetap ringan (lightweight) meski menangani ribuan baris data, tanpa perlu script manual yang berat.
-                  </p>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center mb-4">
+                  <Database className="text-cyan-700 w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-slate-800 mb-2">1. Database & Otomasi</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Minimasi input manual. Deskripsi transaksi memicu penomoran dan tanggal otomatis. Data validation menjamin konsistensi kategori.
+                </p>
+              </div>
 
-                  <div className="space-y-6">
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 border border-blue-200">
-                           <span className="font-mono text-sm font-bold text-blue-600">01</span>
-                        </div>
-                        <div>
-                           <h4 className="font-bold mb-1 text-slate-800">Dynamic ID Generation</h4>
-                           <p className="text-sm text-slate-500">Mendeteksi baris baru dan membuat ID unik otomatis tanpa drag-down manual.</p>
-                        </div>
-                     </div>
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center shrink-0 border border-purple-200">
-                           <span className="font-mono text-sm font-bold text-purple-600">02</span>
-                        </div>
-                        <div>
-                           <h4 className="font-bold mb-1 text-slate-800">Folder Mapping Logic</h4>
-                           <p className="text-sm text-slate-500">Mengubah kategori transaksi menjadi hyperlink dinamis yang mengarah ke folder spesifik.</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+              <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-bl-full -mr-4 -mt-4"></div>
+                <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 relative z-10">
+                  <Code className="text-emerald-700 w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-slate-800 mb-2 relative z-10">2. Digital Indexing ("DNA")</h3>
+                <p className="text-sm text-slate-600 leading-relaxed relative z-10">
+                  Logika mesin menggabungkan Kode Transaksi, Periode, dan Nomor Urut (contoh: ADM-2023-08-001) sebagai identitas tunggal.
+                </p>
+              </div>
 
-               {/* Code Snippet Card - Keeping Dark for Contrast but fixing borders */}
-               <div className="bg-[#1e1e1e] rounded-xl border border-black/10 shadow-xl p-6 font-mono text-xs overflow-hidden relative text-gray-300">
-                  <div className="absolute top-4 right-4 text-gray-600 flex gap-2">
-                     <div className="w-3 h-3 rounded-full bg-white/10"></div>
-                     <div className="w-3 h-3 rounded-full bg-white/10"></div>
-                  </div>
-                  <div className="text-emerald-400 mb-2">// Generate Unique Archive Code</div>
-                  <div className="text-gray-400 mb-4 select-none">
-                     =ARRAYFORMULA(IF(LEN(A2:A), <br/>
-                     &nbsp;&nbsp;UPPER(LEFT(B2:B, 3)) & "-" & <br/>
-                     &nbsp;&nbsp;TEXT(C2:C, "YYYYMM") & "-" & <br/>
-                     &nbsp;&nbsp;TEXT(ROW(A2:A)-1, "0000"), <br/>
-                     ""))
-                  </div>
-                  
-                  <div className="h-px bg-white/10 my-4"></div>
-
-                  <div className="text-cyan-400 mb-2">// Dynamic Folder Hyperlink</div>
-                  <div className="text-gray-400 select-none">
-                     =IFS(<br/>
-                     &nbsp;&nbsp;E2="Marketing", HYPERLINK("drive.google.com/...", "📁 Open Folder"),<br/>
-                     &nbsp;&nbsp;E2="Ops", HYPERLINK("drive.google.com/...", "📁 Open Folder"),<br/>
-                     &nbsp;&nbsp;TRUE, "No Folder Assigned"<br/>
-                     )
-                  </div>
-               </div>
+              <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <FolderOpen className="text-purple-700 w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-slate-800 mb-2">3. Navigasi Cerdas</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Setiap baris transaksi menyediakan link aktif yang mengarah langsung ke folder penyimpanan kategori tersebut (One-Click Access).
+                </p>
+              </div>
             </div>
           </section>
 
-          {/* Workflow Visualization */}
-          <section className="bg-white rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden border border-black/5 shadow-sm">
-             {/* Decorative Background */}
-             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-100/50 rounded-full blur-[80px]"></div>
-
-             <h2 className="text-2xl font-bold mb-12 text-center text-slate-900">Process Workflow</h2>
-             
-             <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-                {/* Step 1 */}
-                <div className="flex flex-col items-center text-center gap-4 group cursor-default">
-                   <div className="w-16 h-16 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center group-hover:scale-110 group-hover:bg-white group-hover:shadow-md transition-all duration-300">
-                      <Table className="text-slate-400 group-hover:text-slate-600" />
-                   </div>
-                   <div>
-                      <h4 className="font-semibold text-sm text-slate-700">Raw Input</h4>
-                      <p className="text-xs text-slate-500 mt-1">User inputs basic data</p>
-                   </div>
+          {/* Technical Deep Dive */}
+          <section className="mb-32 bg-[#1e1e1e] text-gray-300 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px]"></div>
+            
+            <h2 className="text-2xl font-bold mb-8 text-white relative z-10">Bedah Teknikal (Logika & Rumus)</h2>
+            <div className="grid lg:grid-cols-2 gap-12 relative z-10">
+              
+              <div className="space-y-8">
+                <div>
+                  <h4 className="text-cyan-400 font-mono text-sm mb-2 font-bold flex items-center gap-2">
+                    <Hash size={14}/> Otomasi Kode Arsip Unik
+                  </h4>
+                  <p className="text-sm mb-4 leading-relaxed text-gray-400">
+                    Rumus ini melakukan tiga tugas sekaligus: mencari kode kategori, mencatat periode, dan menghitung nomor urut dokumen secara dinamis.
+                  </p>
+                  <div className="bg-black/30 p-4 rounded-lg border border-white/10 font-mono text-xs leading-relaxed text-emerald-300 overflow-x-auto">
+                    =ARRAYFORMULA(IF(D2:D="";"";<br/>
+                    &nbsp;&nbsp;XLOOKUP(C2:C;Ref_Data!A2:A;Ref_Data!B2:B)&"-"&<br/>
+                    &nbsp;&nbsp;TEXT(B2:B;"YYYY-MM")&"-"&<br/>
+                    &nbsp;&nbsp;TEXT(COUNTIFS(C2:C;C2:C;ROW(C2:C);"&lt;="&ROW(C2:C));"000")))
+                  </div>
                 </div>
+              </div>
 
-                <div className="hidden md:block h-px w-24 bg-gradient-to-r from-gray-200 via-cyan-400 to-gray-200"></div>
-                <ArrowRight className="md:hidden text-gray-400 transform rotate-90 my-2" />
-
-                {/* Step 2 */}
-                 <div className="flex flex-col items-center text-center gap-4 group cursor-default">
-                   <div className="w-16 h-16 rounded-2xl bg-cyan-50 border border-cyan-100 flex items-center justify-center shadow-sm group-hover:scale-110 transition-all duration-300">
-                      <Zap className="text-cyan-600" />
-                   </div>
-                   <div>
-                      <h4 className="font-semibold text-sm text-cyan-700">Auto Processing</h4>
-                      <p className="text-xs text-slate-500 mt-1">Formula generates ID & Links</p>
-                   </div>
+              <div className="space-y-8">
+                <div>
+                  <h4 className="text-purple-400 font-mono text-sm mb-2 font-bold flex items-center gap-2">
+                    <LinkIcon size={14}/> Navigasi Link Arsip Dinamis
+                  </h4>
+                  <p className="text-sm mb-4 leading-relaxed text-gray-400">
+                    Menghubungkan database dengan penyimpanan cloud secara instan, memangkas waktu pencarian folder dari hitungan menit menjadi sekali klik.
+                  </p>
+                  <div className="bg-black/30 p-4 rounded-lg border border-white/10 font-mono text-xs leading-relaxed text-blue-300 overflow-x-auto">
+                    =IFS(<br/>
+                    &nbsp;&nbsp;C2=Ref_Data!$A$4;HYPERLINK("LINK_FOLDER_A";"BUKA FOLDER");<br/>
+                    &nbsp;&nbsp;C2=Ref_Data!$A$5;HYPERLINK("LINK_FOLDER_B";"BUKA FOLDER");<br/>
+                    &nbsp;&nbsp;TRUE;"Wait..."<br/>
+                    )
+                  </div>
                 </div>
+              </div>
 
-                <div className="hidden md:block h-px w-24 bg-gradient-to-r from-gray-200 via-emerald-400 to-gray-200"></div>
-                <ArrowRight className="md:hidden text-gray-400 transform rotate-90 my-2" />
+            </div>
+          </section>
 
-                {/* Step 3 */}
-                <div className="flex flex-col items-center text-center gap-4 group cursor-default">
-                   <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shadow-sm group-hover:scale-110 transition-all duration-300">
-                      <FolderOpen className="text-emerald-600" />
-                   </div>
-                   <div>
-                      <h4 className="font-semibold text-sm text-emerald-700">Smart Archive</h4>
-                      <p className="text-xs text-slate-500 mt-1">Data mapped to Drive</p>
-                   </div>
+          {/* Impact Section */}
+          <section className="mb-24">
+             <h2 className="text-2xl font-bold mb-8 text-slate-800 text-center">Dampak Positif bagi Administrasi</h2>
+             <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center p-6 border-b-2 border-transparent hover:border-cyan-500 transition-colors">
+                   <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-cyan-100 text-cyan-600 mb-4 font-bold">1</div>
+                   <h3 className="font-bold text-lg mb-2 text-slate-800">Tertib Administrasi</h3>
+                   <p className="text-slate-600 text-sm">Menciptakan standar penomoran arsip yang seragam dan profesional (Zero-Overlap).</p>
+                </div>
+                <div className="text-center p-6 border-b-2 border-transparent hover:border-emerald-500 transition-colors">
+                   <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mb-4 font-bold">2</div>
+                   <h3 className="font-bold text-lg mb-2 text-slate-800">Aksesibilitas Tinggi</h3>
+                   <p className="text-slate-600 text-sm">Dokumen pendukung dapat diakses dalam hitungan detik melalui sistem link terintegrasi.</p>
+                </div>
+                <div className="text-center p-6 border-b-2 border-transparent hover:border-purple-500 transition-colors">
+                   <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-600 mb-4 font-bold">3</div>
+                   <h3 className="font-bold text-lg mb-2 text-slate-800">Data-Driven Admin</h3>
+                   <p className="text-slate-600 text-sm">Mengubah peran dari "pencatat" menjadi penyedia data analisis bagi pimpinan melalui dashboard.</p>
                 </div>
              </div>
           </section>
 
-          {/* Footer / Connect */}
+          {/* Footer */}
           <footer className="border-t border-black/5 pt-16">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
                <div>
